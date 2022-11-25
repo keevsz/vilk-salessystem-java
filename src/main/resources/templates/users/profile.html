@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head th:replace="layout/layout :: head">
+
+</head>
+<body>
+
+	<div layout:fragment="page-content">
+		<div class="row">
+			<div class="col-xl-4">
+				<!-- Profile picture card-->
+				<div class="card mb-4 mb-xl-0">
+					<div class="card-header">Imagen de perfil</div>
+					<div class="card-body text-center">
+						<img width="25%" class="img-account-profile rounded-circle mb-2"
+							src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+							alt="">
+						<div class="small font-italic text-muted mb-4">JPG or PNG no
+							larger than 5 MB</div>
+						<button class="btn btn-primary" type="button">Upload new
+							image</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-8">
+				<!-- Account details card-->
+				<div class="card mb-4">
+					<div class="card-header">Detalles de la cuenta</div>
+					<div class="card-body">
+						<form th:action="@{/users/update}" method="POST">
+
+							<div class="row gx-3">
+								<!-- Form Group (first name)-->
+								<div class="col-md-12 mb-1">
+									<label class="small mb-1" for="inputFirstName">Nombres</label>
+									<input class="form-control" id="name" type="text"
+										placeholder="Ingrese los nombres" name="name"
+										th:value="${user.name}">
+								</div>
+								<!-- Form Group (last name)-->
+								<div class="col-md-12 mb-1">
+									<label class="small mb-1" for="inputLastName">Apellidos</label>
+									<input class="form-control" id="inputLastName" type="text"
+										placeholder="Ingrese los apellidos" name="lastname"
+										th:value="${user.lastname}">
+								</div>
+							</div>
+							<!-- Form Row        -->
+							<div class="row gx-3 mb-1">
+								<!-- Form Group (organization name)-->
+
+								<!-- Form Group (location)-->
+
+
+								<div class="col-md-4">
+									<label class="small mb-1">DNI</label> <input
+										class="form-control" type="text"
+										placeholder="Ingrese el número de DNI" name="dni"
+										th:value="${user.dni}">
+								</div>
+
+
+
+								<div class="col-md-4">
+									<label class="small mb-1" for="inputBirthday">Fecha de
+										nacimiento</label> <input class="form-control" id="inputBirthday"
+										type="date" name="birthday" placeholder="Enter your birthday"
+										th:value="${user.birthday}" value="06/10/1988">
+								</div>
+
+
+
+								<div class="col-md-2 ">
+									<label class="small mb-1" for="inputGender">Género</label>
+									<div class="form-check form-check-solid">
+										<input class="form-check-input" id="flexRadioSolid1"
+											type="radio" value="H" name="gender"
+											th:checked="${user.getGender().contentEquals('H')}">
+										<label class="form-check-label" for="flexRadioSolid1">Hombre</label>
+									</div>
+									<div class="form-check form-check-solid">
+										<input class="form-check-input" id="flexRadioSolid2"
+											type="radio" value="M" name="gender"
+											th:checked="${user.getGender().contentEquals('M')}">
+										<label class="form-check-label" for="flexRadioSolid2">Mujer</label>
+									</div>
+								</div>
+
+								<div class="col-md-2">
+									<label class="small mb-1">Roles</label>
+									<div class="form-check">
+										<input class="form-check-input" th:type="checkbox"
+											value="ROLE_USER" name="rols"
+											th:checked="${user.getRoles().contains(rolRepository.findByDescription('ROLE_USER').get())}">
+										<label class="form-check-label">Usuario</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox"
+											value="ROLE_ADMIN" name="rols"
+											th:checked="${user.getRoles().contains(rolRepository.findByDescription('ROLE_ADMIN').get())}">
+										<label class="form-check-label">Administrador</label>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="row gx-3 mb-1">
+								<!-- Form Group (organization name)-->
+								<div class="col-md-7">
+									<label class="small mb-1" for="inputOrgName">Email</label> <input
+										class="form-control" id="inputOrgName" type="email"
+										placeholder="Ingrese el email" name="email"
+										th:value="${user.email}">
+								</div>
+
+								<div class="col-md-5">
+
+									<label class="small mb-1" for="inputPhone">Número
+										telefónico</label> <input class="form-control" id="inputPhone"
+										type="tel" placeholder="Ingrese el número de telefono"
+										name="phonenumber" th:value="${user.phonenumber}">
+								</div>
+
+							</div>
+
+							<div class="row gx-3 ">
+								<div class="col-md-7">
+
+									<label class="small mb-1" for="inputLocation">Dirección</label>
+									<input class="form-control" id="inputLocation" type="text"
+										placeholder="Ingrese la dirección" name="location"
+										th:value="${user.location}">
+								</div>
+								<div class="col-md-5">
+
+									<label class="small mb-1" for="inputLocation">Contraseña</label>
+									<input class="form-control" id="inputLocation" type="text"
+										placeholder="¿Nueva contraseña?" name="password"
+										th:value="${password}">
+								</div>
+							</div>
+
+
+							
+
+
+							<div class="m-3">
+								<a href="/users" class="btn btn-secondary btn-icon-split"> <span
+									class="text text-center">Cancelar</span>
+
+								</a>
+								<button href="/users/index"
+									class="btn btn-primary btn-icon-split float-right">
+									<span class="text text-center">Guardar</span>
+
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<th:block layout:fragment="page-scripts">
+		<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{/js/sb-admin-2.min.js}"></script>
+		<script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+		<script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+		<script th:src="@{/js/demo/datatables-demo.js}"></script>
+
+	</th:block>
+
+</body>
+</html>

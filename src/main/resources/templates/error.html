@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head th:replace="layout/layout :: head">
+
+</head>
+<body>
+
+	<div layout:fragment="page-content">
+		<div class="text-center">
+			<div class="error mx-auto" data-text="404">404</div>
+			<p class="lead text-gray-800 mb-5">Página no encontrada</p>
+			<p class="text-gray-500 mb-0">Parece que encontraste un fallo en la matrix</p>
+			<a href="/index	">&larr; Regresar al inicio</a>
+		</div>
+	</div>
+
+
+	<th:block layout:fragment="page-scripts">
+		<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{/js/sb-admin-2.min.js}"></script>
+		<script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+		<script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+		<script th:src="@{/js/demo/datatables-demo.js}"></script>
+
+	</th:block>
+
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head th:replace="layout/layout :: head">
+
+</head>
+<body>
+
+	<div layout:fragment="page-content">
+		<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"
+			rel="stylesheet" />
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+		<div th:if="${param.success}">
+			<script>
+				toastr.options = {
+					"closeButton" : false,
+					"debug" : false,
+					"newestOnTop" : false,
+					"progressBar" : false,
+					"positionClass" : "toast-bottom-right",
+					"preventDuplicates" : true,
+					"onclick" : null,
+					"showDuration" : "300",
+					"hideDuration" : "1000",
+					"timeOut" : "2000",
+					"extendedTimeOut" : "1000",
+					"showEasing" : "swing",
+					"hideEasing" : "linear",
+					"showMethod" : "fadeIn",
+					"hideMethod" : "fadeOut"
+				}
+				toastr["success"]("Usuario registrado!", "Mensaje")
+				console.log("Success")
+			</script>
+		</div>
+
+		<div th:if="${param.updated}">
+			<script>
+				toastr.options = {
+					"closeButton" : false,
+					"debug" : false,
+					"newestOnTop" : false,
+					"progressBar" : false,
+					"positionClass" : "toast-bottom-right",
+					"preventDuplicates" : true,
+					"onclick" : null,
+					"showDuration" : "300",
+					"hideDuration" : "1000",
+					"timeOut" : "2000",
+					"extendedTimeOut" : "1000",
+					"showEasing" : "swing",
+					"hideEasing" : "linear",
+					"showMethod" : "fadeIn",
+					"hideMethod" : "fadeOut"
+				}
+				toastr["info"]("Usuario actualizado!", "Mensaje")
+				console.log("Info")
+			</script>
+		</div>
+
+
+
+		<div class="card shadow mb-4">
+
+			<div class="card-header py-3 ">
+				<span class="mx-2 mt-5 text-lg font-weight-bold ">Lista de
+					usuarios</span> <a th:href="@{/users/create}"
+					class="btn btn-primary btn-icon-split float-right"> <span
+					class="text">Nuevo</span> <span class="icon text-white-50">
+						<i class="fas fa-user-plus"></i>
+				</span>
+				</a>
+			</div>
+
+
+
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-light table-hover text-center"
+						id="datatable" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Nombres</th>
+								<th scope="col">Apellidos</th>
+								<th scope="col">Email</th>
+								<th scope="col">Teléfono</th>
+								<th scope="col">Acciones</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Nombres</th>
+								<th scope="col">Apellidos</th>
+								<th scope="col">Email</th>
+								<th scope="col">Teléfono</th>
+								<th scope="col">Acciones</th>
+							</tr>
+						</tfoot>
+						<tbody>
+							<tr th:each="user : ${users}">
+								<td th:text="${user.id}"></td>
+								<td th:text="${user.name}"></td>
+								<td th:text="${user.lastname}"></td>
+								<td th:text="${user.email}"></td>
+								<td th:text="${user.phonenumber}"></td>
+								
+
+								<td><a th:href="@{/users/edit(id=${user.id})}"
+									class="btn btn-success btn-circle btn-sm"> <i
+										class="fas fa-edit"></i>
+								</a> <a th:href="@{/users/delete(id=${user.id})}"
+									class="btn btn-danger btn-circle btn-sm"> <i
+										class="fas fa-trash"></i>
+								</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<th:block layout:fragment="page-scripts">
+		<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{/js/sb-admin-2.min.js}"></script>
+		<script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+		<script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+		<script th:src="@{/js/demo/datatables-demo.js}"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script>
+			console.log("hola")
+			$("#datatable").DataTable({
+				responsive : true,
+				autoWidth : false,
+				language : {
+					lengthMenu : "Mostrar _MENU_ registros",
+					zeroRecords : "No hay registros disponibles",
+					info : "Mostrando la pagina _PAGE_ de _PAGES_",
+					infoEmpty : "No hay registros disponibles",
+					infoFiltered : "(filtrado de _MAX_ registros totales)",
+					search : "Buscar:",
+					paginate : {
+						next : "Siguiente",
+						previous : "Anterior",
+					},
+				},
+			});
+		</script>
+	</th:block>
+
+</body>
+</html>

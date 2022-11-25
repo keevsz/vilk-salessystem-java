@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}"
+>
+  <head th:replace="layout/layout :: head"> </head>
+  <body>
+    <div layout:fragment="page-content">
+      <div class="col-md-3 card shadow mb-xl-0 rounded">
+        <!-- Card Header - Accordion -->
+        <div
+          href="#collapseCardExample"
+          class="d-block py-3 card-header bg-white border-none"
+          data-toggle="collapse"
+          role="button"
+          aria-expanded="true"
+          aria-controls="collapseCardExample"
+        >
+          Nuevo cliente
+        </div>
+        <div
+          class="collapse"
+          id="collapseCardExample"
+          style="margin-top: -15px"
+        >
+          <div class="card-body">
+            <form th:action="@{/clients/store}" method="POST">
+              <label class="small mb-1" for="inputFirstName">Nombres</label>
+              <div class="row">
+                <input
+                  class="col-10 form-control"
+                  id="inputFirstName"
+                  type="text"
+                  placeholder="Ingrese nombres"
+                  name="name"
+                />
+              </div>
+              <label class="small mb-1" for="inputFirstName">DNI</label>
+              <div class="row">
+                <input
+                  class="col-10 form-control"
+                  id="inputFirstName"
+                  type="text"
+                  placeholder="Ingrese dni"
+                  name="dni"
+                />
+              </div>
+              <button class="col-4 mt-2 w-xs form-control btn btn-primary">
+                Agregar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <br />
+      <a href="/sales/create" class="btn btn-secondary btn-icon-split">
+        <span class="text text-center">Atrás</span>
+      </a>
+    </div>
+
+    <th:block layout:fragment="page-scripts">
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="js/sb-admin-2.min.js"></script>
+      <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+      <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+      <script src="js/demo/datatables-demo.js"></script>
+    </th:block>
+  </body>
+</html>

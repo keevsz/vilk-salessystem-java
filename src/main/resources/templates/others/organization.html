@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}"
+>
+  <head th:replace="layout/layout :: head"> </head>
+  <body>
+    <div layout:fragment="page-content">
+      <main>
+        <!-- Main page content-->
+        <div class="container-fluid px-4">
+          <div class="card bg-gradient-secondary mb-4">
+            <div class="card-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="me-3">
+                  <div class="small text-white-50">ERP</div>
+                  <div class="h1 text-white">VILK</div>
+                </div>
+                <div class="text-white">
+                  <span th:text="${count}"></span> Miembro(s)
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-2">
+            <div class="card-body">
+              <div class="small text-muted mb-2">Miembros:</div>
+              <div class="row">
+                <div th:each="user : ${users}" class="col-lg-3 mb-4">
+                  <div class="d-flex align-items-center">
+                    <div class="avatar avatar-lg">
+                      <img
+                        class="icon-circle mr-3 img-fluid"
+                        src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                      />
+                    </div>
+                    <div class="ms-3">
+                      <div th:text="${user.name}" class="fs-4 text-dark fw-500">
+                        Garrett Winters
+                      </div>
+                      <div
+                        th:if="${user.getRoles().contains(rolRepository.findByDescription('ROLE_ADMIN').get())}"
+                        class="small text-muted"
+                      >
+                        Administrador
+                      </div>
+                      <div
+                        th:if="${user.getRoles().contains(rolRepository.findByDescription('ROLE_USER').get())}"
+                        class="small text-muted"
+                      >
+                        Usuario
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <th:block layout:fragment="page-scripts"> </th:block>
+  </body>
+</html>

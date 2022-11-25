@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head th:replace="layout/layout :: head">
+
+</head>
+<body>
+
+	<div layout:fragment="page-content">
+		<div class="row">
+			<div class="col-xl-4 ">
+				<!-- Profile picture card-->
+				<div class="card mb-4 shadow mb-xl-0">
+					<div class="card-header">Imagen del producto</div>
+					<div class="card-body text-center">
+						<img width="25%" class="img-account-profile rounded-circle mb-2"
+							src="https://cdn-icons-png.flaticon.com/512/5970/5970730.png"
+							alt="">
+						<div class="small font-italic text-muted mb-4">JPG or PNG no
+							larger than 5 MB</div>
+						<button class="btn btn-primary" type="button">Upload new
+							image</button>
+					</div>
+				</div>
+
+
+				<div class="card shadow mt-1 mb-1 mb-xl-0">
+					<!-- Card Header - Accordion -->
+					<div href="#collapseCardExample" class="d-block card-header py-3"
+						data-toggle="collapse" role="button" aria-expanded="true"
+						aria-controls="collapseCardExample">Nueva categoria</div>
+					<div class="collapse" id="collapseCardExample">
+						<div class="card-body">
+							<form th:action="@{/category/store}" method="POST">
+								<label class="small mb-1" for="inputFirstName">Descripción</label>
+								<div class="row">
+									<input class="col-10 form-control " id="inputFirstName"
+										type="text" placeholder="Bebidas, galletas, etc..."
+										name="description">
+									<button class="col-2 w-xs form-control btn btn-primary">
+										+
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-xl-8">
+				<!-- Account details card-->
+				<div class="card shadow mb-4">
+					<div class="card-header">Detalles del producto</div>
+					<div class="card-body">
+						<form th:action="@{/products/store}" method="POST">
+
+							<div class="row gx-3">
+								<!-- Form Group (first name)-->
+								<div class="col-md-12 mb-1">
+									<label class="small mb-1" for="inputFirstName">Descripción</label>
+									<input class="form-control" id="inputFirstName" type="text"
+										placeholder="Nombre del producto" name="description">
+								</div>
+								<!-- Form Group (last name)-->
+								<div class="col-md-12 mb-1">
+									<label class="small mb-1" for="inputLastName">Imagen</label> <input
+										class="form-control" id="inputLastName" type="text"
+										placeholder="Url de imagen" name="image">
+								</div>
+							</div>
+							<!-- Form Row        -->
+							<div class="row gx-3 mb-1">
+
+								<div class="col-md-4">
+									<label class="small mb-1" for="exampleFormControlSelect1">Categoría</label><select
+										class="form-control" name="idCategory"
+										id="exampleFormControlSelect1">
+										<option th:each="category : ${categories}"
+											th:value="${category.id}" th:text="${category.description}"></option>
+									</select>
+								</div>
+
+								<div class="col-md-4">
+									<label class="small mb-1" for="inputBirthday">Precio</label> <input
+										class="form-control" id="inputBirthday" type="number"
+										step="0.01" name="price" placeholder="Ingrese el precio">
+								</div>
+
+								<div class="col-md-4">
+									<label class="small mb-1" for="inputBirthday">Cantidad</label>
+									<input class="form-control" id="inputBirthday" type="number"
+										name="quantity" placeholder="Ingrese la cantidad">
+								</div>
+
+							</div>
+
+							<div class="m-3">
+								<a href="/products" class="btn btn-secondary btn-icon-split">
+									<span class="text text-center">Cancelar</span>
+
+								</a>
+								<button href="/products/index"
+									class="btn btn-primary btn-icon-split float-right">
+									<span class="text text-center">Guardar</span>
+								</button>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<th:block layout:fragment="page-scripts">
+
+	</th:block>
+
+</body>
+</html>
